@@ -5,10 +5,11 @@ import Footer from './components/common/footer';
 import Header from './components/common/header';
 import ScrollToTop from './components/common/ScrollToTop';
 import LoginModal from './components/ui/LoginModal';
+import ViewProperty from './components/ui/ViewProperty';
 import AboutPage from './pages/About';
+import Dashboard from './pages/Dashboard';
 import HomePage from './pages/home';
 import ListPropertyPage from './pages/ListProperty';
-import AdminDashboardPage from './pages/Dashbord';
 
 function AppContent() {
   const [isLoginModalOpen, setLoginModalOpen] = useState(false);
@@ -16,8 +17,6 @@ function AppContent() {
   const closeLoginModal = () => setLoginModalOpen(false);
 
   const location = useLocation();
-
-  // ✅ Hide header/footer on dashboard
   const hideLayout = location.pathname.startsWith('/dashbord');
 
   return (
@@ -30,7 +29,8 @@ function AppContent() {
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/list-property" element={<ListPropertyPage />} />
-          <Route path="/dashbord" element={<AdminDashboardPage />} />
+          <Route path="/dashbord" element={<Dashboard />} />
+          <Route path="/view-properties" element={<ViewProperty />} /> {/* ✅ FIXED */}
         </Routes>
       </main>
 
