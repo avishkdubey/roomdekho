@@ -5,11 +5,12 @@ import Footer from './components/common/footer';
 import Header from './components/common/header';
 import ScrollToTop from './components/common/ScrollToTop';
 import LoginModal from './components/ui/LoginModal';
-import ViewProperty from './pages/ViewProperty';
 import AboutPage from './pages/About';
 import Dashboard from './pages/Dashboard';
 import HomePage from './pages/home';
 import ListPropertyPage from './pages/ListProperty';
+import PropertyDetailPage from './pages/PropertyDetail';
+import ViewProperty from './pages/ViewProperty';
 
 function AppContent() {
   const [isLoginModalOpen, setLoginModalOpen] = useState(false);
@@ -18,6 +19,7 @@ function AppContent() {
 
   const location = useLocation();
   const hideLayout = location.pathname.startsWith('/dashbord');
+  const hideFooter = location.pathname.startsWith('/view-properties') || location.pathname.startsWith('/property-detail');
 
   return (
     <div className="font-sans bg-white min-h-screen flex flex-col">
@@ -30,11 +32,12 @@ function AppContent() {
           <Route path="/about" element={<AboutPage />} />
           <Route path="/list-property" element={<ListPropertyPage />} />
           <Route path="/dashbord" element={<Dashboard />} />
-          <Route path="/view-properties" element={<ViewProperty />} /> {/* ✅ FIXED */}
+          <Route path="/view-properties" element={<ViewProperty />} />
+          <Route path="/property-detail" element={<PropertyDetailPage />} />
         </Routes>
       </main>
 
-      {!hideLayout && <Footer />}
+      {!hideLayout && !hideFooter && <Footer />}
       <LoginModal isOpen={isLoginModalOpen} onClose={closeLoginModal} />
     </div>
   );
