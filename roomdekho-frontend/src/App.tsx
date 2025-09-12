@@ -5,7 +5,7 @@ import Footer from './components/common/footer';
 import Header from './components/common/header';
 import ScrollToTop from './components/common/ScrollToTop';
 import LoginModal from './components/ui/LoginModal';
-import ViewProperty from './components/ui/ViewProperty';
+import ViewProperty from './pages/ViewProperty';
 import AboutPage from './pages/About';
 import Dashboard from './pages/Dashboard';
 import HomePage from './pages/home';
