@@ -1,33 +1,34 @@
 // src/components/ui/Home.tsx
-import React, { useState, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 // Import components
-import Header from '../common/header';
-import Footer from '../common/footer';
-import LoginModal from './LoginModal';
+// Header and Footer are now rendered globally in App.tsx
 import AnimatedBox from './AnimatedBox';
 import FadeInUpBox from './FadeInUpBox';
+// Login modal is rendered globally in App.tsx
 
 // Import assets
-import sidehouse1 from '../../assets/images/sidehouse1.jpeg';
-import sidehouse2 from '../../assets/images/sidehouse2.jpeg';
+import abhishekImg from '../../assets/images/Abhishek.png';
+import camerahomeImg from '../../assets/images/camerahome.jpeg';
+import divyanshImg from '../../assets/images/divyansh.JPG';
+import videoBg from '../../assets/images/Fin.mp4';
+import houseIconImg from '../../assets/images/house-icon.jpeg';
+import houserentImg from '../../assets/images/houserent.jpg';
 import room1 from '../../assets/images/modern-living-room-decor-1366x768.webp';
+import movingBg from '../../assets/images/moving1.webp';
 import room2 from '../../assets/images/room2.webp';
 import room3 from '../../assets/images/room3.jpeg';
-import videoBg from '../../assets/images/Fin.mp4';
-import movingBg from '../../assets/images/moving1.webp';
-import divyanshImg from '../../assets/images/divyansh.JPG';
-import abhishekImg from '../../assets/images/Abhishek.png';
-import houserentImg from '../../assets/images/houserent.jpg';
-import houseIconImg from '../../assets/images/house-icon.jpeg';
-import camerahomeImg from '../../assets/images/camerahome.jpeg';
+import sidehouse1 from '../../assets/images/sidehouse1.jpeg';
+import sidehouse2 from '../../assets/images/sidehouse2.jpeg';
 
 // Icons
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Home = () => {
-    const [isLoginModalOpen, setLoginModalOpen] = useState(false);
+    const location = useLocation();
+    // local modal state removed; controlled globally
 
     // Refs for smooth scrolling
     const flatsRef = useRef<HTMLElement>(null);
@@ -42,17 +43,28 @@ const Home = () => {
     };
 
     // Modal handlers
-    const openLoginModal = () => setLoginModalOpen(true);
-    const closeLoginModal = () => setLoginModalOpen(false);
+    // no local modal handlers
     
+    const scrollToHash = () => {
+        if (location.hash) {
+            const id = location.hash.replace('#', '');
+            const el = document.getElementById(id);
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                // account for sticky header height
+                setTimeout(() => window.scrollBy({ top: -80, behavior: 'instant' as ScrollBehavior }), 300);
+            }
+        }
+    };
+
+    useEffect(() => {
+        // on mount and when hash changes
+        scrollToHash();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [location.hash]);
+
     return (
         <div className="font-sans bg-white">
-            <Header 
-                scrollToTop={scrollToTop}
-                scrollToFlats={() => scrollToRef(flatsRef)}
-                scrollToAboutUs={() => scrollToRef(aboutUsRef)}
-                openLoginModal={openLoginModal}
-            />
 
             {/* --- HERO SECTION --- */}
             <header className="relative flex items-center justify-center h-[90vh] overflow-hidden">
@@ -102,7 +114,7 @@ const Home = () => {
                 </section>
                 
                  {/* --- FEATURED ROOMS --- */}
-                <section ref={flatsRef} className="py-16 md:py-20">
+                <section id="flats" ref={flatsRef} className="py-16 md:py-20">
                     <h2 className="text-3xl md:text-4xl font-bold text-center">Featured <span className="text-gray-500">r<span className="text-red-800">oo</span>ms</span> recommendations</h2>
                     <p className="mt-2 text-center text-gray-500">Curated spaces, tailored for your comfort and style.</p>
                     <div className="grid grid-cols-1 gap-10 mt-12 md:grid-cols-2 lg:grid-cols-3">
@@ -202,9 +214,7 @@ const Home = () => {
                 </div>
             </section>
 
-            <Footer />
-
-            <LoginModal isOpen={isLoginModalOpen} onClose={closeLoginModal} />
+            {/* LoginModal rendered in App */}
         </div>
     );
 };
