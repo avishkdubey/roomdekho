@@ -1,6 +1,6 @@
 import { Bell, Building2, Home, LogIn, Menu, Plus, Search, User, Users, X } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
-
+import { Link } from 'react-router-dom';
 // Define the props interface for the Header component
 interface HeaderProps {
     openLoginModal: () => void;
@@ -101,10 +101,10 @@ const Header: React.FC<HeaderProps> = ({ openLoginModal }) => {
                             </button>
 
                             {/* Add Property Button */}
-                            <button className="flex items-center space-x-2 px-6 py-2.5 bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 text-white font-semibold rounded-xl hover:from-amber-600 hover:via-orange-600 hover:to-red-600 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl">
+                            <Link to={'/list-property'}><button className="flex items-center space-x-2 px-6 py-2.5 bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 text-white font-semibold rounded-xl hover:from-amber-600 hover:via-orange-600 hover:to-red-600 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl">
                                 <Plus className="w-4 h-4" />
                                 <span>List Property</span>
-                            </button>
+                            </button></Link>
                         </div>
 
                         {/* Mobile Menu Button */}
@@ -200,13 +200,13 @@ const Header: React.FC<HeaderProps> = ({ openLoginModal }) => {
                         </ul>
 
                         <div className="px-6 mt-6">
-                            <button 
+                            <Link to={'/list-property'}><button 
                                 onClick={() => setIsMenuOpen(false)}
                                 className="w-full flex items-center justify-center space-x-2 px-4 py-3 bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 text-white font-semibold rounded-xl hover:from-amber-600 hover:via-orange-600 hover:to-red-600 transform hover:scale-105 transition-all duration-300 shadow-lg"
                             >
                                 <Plus className="w-4 h-4" />
                                 <span>List Your Property</span>
-                            </button>
+                            </button></Link>
                         </div>
 
                         {/* Quick Stats */}
